@@ -172,6 +172,12 @@ ufo_task_generate (UfoTask *task,
     return result;
 }
 
+void
+ufo_task_inputs_stopped_callback (UfoTask *task)
+{
+    UFO_TASK_GET_IFACE (task)->inputs_stopped_callback (task);
+}
+
 gboolean
 ufo_task_uses_gpu (UfoTask *task)
 {
@@ -258,6 +264,12 @@ ufo_task_generate_real (UfoTask *task,
 }
 
 static void
+ufo_task_inputs_stopped_callback_real (UfoTask *task)
+{
+    /* By default do nothing */
+}
+
+static void
 ufo_task_default_init (UfoTaskInterface *iface)
 {
     iface->setup = ufo_task_setup_real;
@@ -268,6 +280,7 @@ ufo_task_default_init (UfoTaskInterface *iface)
     iface->set_json_object_property = ufo_task_set_json_object_property_real;
     iface->process = ufo_task_process_real;
     iface->generate = ufo_task_generate_real;
+    iface->inputs_stopped_callback = ufo_task_inputs_stopped_callback_real;
 
     signals[PROCESSED] =
         g_signal_new ("processed",

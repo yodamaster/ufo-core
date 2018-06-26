@@ -112,6 +112,7 @@ struct _UfoTaskIface {
     gboolean (*generate)                (UfoTask        *task,
                                          UfoBuffer      *output,
                                          UfoRequisition *requisition);
+    void (*inputs_stopped_callback)     (UfoTask        *task);
 };
 
 void    ufo_task_setup              (UfoTask        *task,
@@ -137,6 +138,8 @@ gboolean ufo_task_process           (UfoTask        *task,
 gboolean ufo_task_generate          (UfoTask        *task,
                                      UfoBuffer      *output,
                                      UfoRequisition *requisition);
+void ufo_task_inputs_stopped_callback
+                                    (UfoTask        *task);
 gboolean ufo_task_uses_gpu          (UfoTask        *task);
 gboolean ufo_task_uses_cpu          (UfoTask        *task);
 
